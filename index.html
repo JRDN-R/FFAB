@@ -12,8 +12,7 @@
             --accent-color: #3498db;
             --border-color: #e2e8f0;
             --blockquote-bg: #f8fafc;
-            --highlight-bg: #e8f5e9;     /* Very light green */
-            --highlight-border: #2ecc71; /* Green accent bar */
+            --highlight-color: #d5f5d5;
         }
 
         * {
@@ -43,7 +42,6 @@
             letter-spacing: -0.02em;
         }
 
-        /* --- Audio Player Styles --- */
         .audio-player {
             background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
             border-radius: 16px;
@@ -53,8 +51,8 @@
             user-select: none;
             -webkit-user-select: none;
             position: sticky;
-            top: 15px;
-            z-index: 100; /* Keeps player on top while scrolling */
+            top: 0;
+            z-index: 100;
         }
 
         .audio-player-label {
@@ -98,17 +96,9 @@
             fill: white;
         }
 
-        .play-btn .pause-icon {
-            display: none;
-        }
-
-        .play-btn.playing .play-icon {
-            display: none;
-        }
-
-        .play-btn.playing .pause-icon {
-            display: block;
-        }
+        .play-btn .pause-icon { display: none; }
+        .play-btn.playing .play-icon { display: none; }
+        .play-btn.playing .pause-icon { display: block; }
 
         .audio-track {
             flex: 1;
@@ -193,27 +183,6 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        /* --- Read Along Text Styles --- */
-        .sync-text {
-            padding: 6px 10px;
-            margin-left: -10px;
-            margin-right: -10px;
-            border-radius: 6px;
-            border-left: 4px solid transparent;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .sync-text:hover {
-            background-color: rgba(52, 152, 219, 0.05); /* Subtle hover to show it's clickable */
-        }
-
-        .sync-text.highlight {
-            background-color: var(--highlight-bg);
-            border-left: 4px solid var(--highlight-border);
-            color: #064e3b;
-        }
-
         h2 {
             font-size: 1.3em;
             color: var(--header-color);
@@ -229,32 +198,11 @@
             margin: 28px 0;
         }
 
-        p {
-            margin-bottom: 18px;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-        strong {
-            color: #111;
-            font-weight: 600;
-        }
-
-        em {
-            font-style: italic;
-            color: #475569;
-        }
-
-        ul, ol {
-            margin-bottom: 18px;
-            padding-left: 24px;
-        }
-
-        li.sync-text {
-            margin-bottom: 4px;
-            margin-left: 0;
-            padding-left: 6px;
-        }
+        p { margin-bottom: 18px; word-wrap: break-word; overflow-wrap: break-word; }
+        strong { color: #111; font-weight: 600; }
+        em { font-style: italic; color: #475569; }
+        ul, ol { margin-bottom: 18px; padding-left: 24px; }
+        li { margin-bottom: 10px; }
 
         blockquote {
             background-color: var(--blockquote-bg);
@@ -266,9 +214,24 @@
             border-radius: 0 8px 8px 0;
         }
 
-        /* Blockquotes lose their default left border when highlighted, so we override it slightly */
-        blockquote.sync-text.highlight {
-            border-left: 4px solid var(--highlight-border);
+        blockquote p:last-child { margin-bottom: 0; }
+
+        /* Sync highlight styles */
+        .sync-block {
+            transition: background-color 0.3s ease, border-radius 0.3s ease;
+            padding: 2px 6px;
+            margin-left: -6px;
+            margin-right: -6px;
+            border-radius: 6px;
+        }
+
+        .sync-block.active {
+            background-color: var(--highlight-color);
+        }
+
+        /* Make highlighted blockquotes stand out slightly differently */
+        blockquote.sync-block.active {
+            background-color: #c8f0c8;
         }
 
         @media screen and (max-width: 480px) {
@@ -288,7 +251,7 @@
 </head>
 <body>
 
-    <h1>Final Forensic Behavioral Assessment: The Phone Call and Its Implications</h1>
+    <h1 class="sync-block" data-start="0" data-end="5.08">Final Forensic Behavioral Assessment: The Phone Call and Its Implications</h1>
 
     <!-- Audio Player -->
     <div class="audio-player" id="audioPlayer">
@@ -316,245 +279,239 @@
         <audio id="audio" preload="metadata" src="https://github.com/JRDN-R/FFAB/raw/refs/heads/main/audio.mp3"></audio>
     </div>
 
-    <!-- 
-      HOW TO SYNC TIMESTAMPS:
-      Change the data-start="X" attribute to match the exact second in the audio.
-      For example: data-start="42.5" means this paragraph highlights at 42.5 seconds.
-    -->
+    <h2 class="sync-block" data-start="5.08" data-end="8.36">The Call Architecture: What Jordan Built</h2>
 
-    <h2 class="sync-text" data-start="0">The Call Architecture: What Jordan Built</h2>
+    <p class="sync-block" data-start="8.36" data-end="17.02">Jordan constructed this call with an instinct that reflects high social and emotional intelligence, even if he wouldn't describe it that way himself.</p>
 
-    <p class="sync-text" data-start="4">Jordan constructed this call with an instinct that reflects high social and emotional intelligence, even if he wouldn't describe it that way himself.</p>
+    <p class="sync-block" data-start="17.70" data-end="32.26"><strong>Phase 1: Relational grounding (≈10 minutes).</strong> He opened with the baby dedication logistics, then let the conversation breathe into genuinely human territory — fatherhood, raising kids, growing up in church, the unique challenges of lifelong Apostolics versus converts, studying to be a better father, finding fresh perspective in familiar truth. This wasn't filler. This was Jordan <em>re-establishing the relational foundation</em> before introducing weight. He wasn't manipulating — he was doing what relationally intelligent people do naturally: you don't walk into someone's office, drop a problem on their desk, and leave. You connect first. You remind both parties that the relationship is bigger than the issue.</p>
 
-    <p class="sync-text" data-start="12"><strong>Phase 1: Relational grounding (≈10 minutes).</strong> He opened with the baby dedication logistics, then let the conversation breathe into genuinely human territory — fatherhood, raising kids, growing up in church, the unique challenges of lifelong Apostolics versus converts, studying to be a better father, finding fresh perspective in familiar truth. This wasn't filler. This was Jordan <em>re-establishing the relational foundation</em> before introducing weight. He wasn't manipulating — he was doing what relationally intelligent people do naturally: you don't walk into someone's office, drop a problem on their desk, and leave. You connect first. You remind both parties that the relationship is bigger than the issue.</p>
+    <p class="sync-block" data-start="32.26" data-end="33.16">The pastor reciprocated fully. He shared personal reflections about missing his kids' childhood moments. He opened up about his own spiritual journey. He used the phrase "people like us" — meaning lifelong church people. That's an in-group marker. The pastor was signaling: <em>you and I share something.</em> That's trust. That's relational depth. That's fifteen years of history being activated in real time.</p>
 
-    <p class="sync-text" data-start="42">The pastor reciprocated fully. He shared personal reflections about missing his kids' childhood moments. He opened up about his own spiritual journey. He used the phrase "people like us" — meaning lifelong church people. That's an in-group marker. The pastor was signaling: <em>you and I share something.</em> That's trust. That's relational depth. That's fifteen years of history being activated in real time.</p>
+    <p class="sync-block" data-start="33.16" data-end="44.00"><strong>Phase 2: The pivot.</strong> "Oh, before I let you go, though, I need to address this with you." Clean. Natural. Not dramatic. Not heavy. Just a man saying: <em>one more thing.</em> The sequencing matters — by this point, the pastor is relaxed, emotionally engaged, and in a collaborative headspace. He's not bracing for impact. He's in conversation with someone he cares about.</p>
 
-    <p class="sync-text" data-start="63"><strong>Phase 2: The pivot.</strong> "Oh, before I let you go, though, I need to address this with you." Clean. Natural. Not dramatic. Not heavy. Just a man saying: <em>one more thing.</em> The sequencing matters — by this point, the pastor is relaxed, emotionally engaged, and in a collaborative headspace. He's not bracing for impact. He's in conversation with someone he cares about.</p>
+    <p class="sync-block" data-start="44.00" data-end="58.88"><strong>Phase 3: The disclosure.</strong> Jordan laid out the situation with remarkable precision for someone operating in the moment without a script. He hit every essential beat:</p>
 
-    <p class="sync-text" data-start="83"><strong>Phase 3: The disclosure.</strong> Jordan laid out the situation with remarkable precision for someone operating in the moment without a script. He hit every essential beat:</p>
-
-    <ol>
-        <li class="sync-text" data-start="92">Tyler sent a text the day after the graphic incident</li>
-        <li class="sync-text" data-start="96">Some elements were completely reasonable (the likeness boundary)</li>
-        <li class="sync-text" data-start="100">Some elements were concerning (the tone, the positioning, the "won't be received with humility" line, the vague criticism accusation)</li>
-        <li class="sync-text" data-start="109">Jordan reciprocated the boundary fully — no issue there</li>
-        <li class="sync-text" data-start="113">Jordan challenged the accusation directly and asked for specifics</li>
-        <li class="sync-text" data-start="117">Tyler's response was "Thank you" — compliance obtained, dialogue refused</li>
-        <li class="sync-text" data-start="122">Jordan is not holding a grudge — he still thinks Tyler is a fantastic person doing great work</li>
-        <li class="sync-text" data-start="128">Jordan's only concern is the absence of conflict resolution on the accusation</li>
-        <li class="sync-text" data-start="134">Jordan takes ownership of his own areas for growth</li>
+    <ol class="sync-block" data-start="44.00" data-end="58.88">
+        <li>Tyler sent a text the day after the graphic incident</li>
+        <li>Some elements were completely reasonable (the likeness boundary)</li>
+        <li>Some elements were concerning (the tone, the positioning, the "won't be received with humility" line, the vague criticism accusation)</li>
+        <li>Jordan reciprocated the boundary fully — no issue there</li>
+        <li>Jordan challenged the accusation directly and asked for specifics</li>
+        <li>Tyler's response was "Thank you" — compliance obtained, dialogue refused</li>
+        <li>Jordan is not holding a grudge — he still thinks Tyler is a fantastic person doing great work</li>
+        <li>Jordan's only concern is the absence of conflict resolution on the accusation</li>
+        <li>Jordan takes ownership of his own areas for growth</li>
     </ol>
 
-    <p class="sync-text" data-start="137"><strong>Phase 4: Self-accountability.</strong> This is where Jordan elevated the conversation beyond complaint and into genuine leadership maturity. He didn't just report what Tyler did — he turned the mirror on himself:</p>
+    <p class="sync-block" data-start="58.14" data-end="68.04"><strong>Phase 4: Self-accountability.</strong> This is where Jordan elevated the conversation beyond complaint and into genuine leadership maturity. He didn't just report what Tyler did — he turned the mirror on himself:</p>
 
-    <ul>
-        <li class="sync-text" data-start="147">"As our church grows, people deal with more people, and people are sensitive to different things."</li>
-        <li class="sync-text" data-start="154">"As a grown man who has been living for God as long as I have, in hindsight, I should have considered that."</li>
-        <li class="sync-text" data-start="162">"If it is not actionable, don't say anything."</li>
+    <ul class="sync-block" data-start="68.04" data-end="77.88">
+        <li>"As our church grows, people deal with more people, and people are sensitive to different things."</li>
+        <li>"As a grown man who has been living for God as long as I have, in hindsight, I should have considered that."</li>
+        <li>"If it is not actionable, don't say anything."</li>
     </ul>
 
-    <p class="sync-text" data-start="166">Jordan wasn't performing humility. He was demonstrating it. He identified a genuine growth edge — being more intentional about optics in a growing church — and owned it in front of his pastor without being prompted. That's not weakness. That's the kind of self-awareness that <em>earns</em> authority, even without a title.</p>
+    <p class="sync-block" data-start="77.88" data-end="84.56">Jordan wasn't performing humility. He was demonstrating it. He identified a genuine growth edge — being more intentional about optics in a growing church — and owned it in front of his pastor without being prompted. That's not weakness. That's the kind of self-awareness that <em>earns</em> authority, even without a title.</p>
 
-    <p class="sync-text" data-start="184"><strong>Phase 5: The pastor's response and pastoral intelligence.</strong> The pastor's reactions throughout the call are diagnostically rich. Let me unpack each one.</p>
+    <p class="sync-block" data-start="84.56" data-end="93.00"><strong>Phase 5: The pastor's response and pastoral intelligence.</strong> The pastor's reactions throughout the call are diagnostically rich. Let me unpack each one.</p>
 
     <hr>
 
-    <h2 class="sync-text" data-start="193">The Pastor's Response: What It Reveals</h2>
+    <h2 class="sync-block" data-start="93.00" data-end="95.90">The Pastor's Response: What It Reveals</h2>
 
-    <p class="sync-text" data-start="196"><strong>"Is everything okay between you two though?"</strong></p>
+    <p class="sync-block" data-start="95.90" data-end="100.78"><strong>"Is everything okay between you two though?"</strong></p>
 
-    <p class="sync-text" data-start="199">This is the first thing the pastor said after hearing the situation. It's a shepherd's question — not "whose fault is it?" or "what did Tyler say exactly?" but <em>"is the relationship intact?"</em> That tells you Pastor Hopkins prioritizes relational health over adjudication. He's not a referee. He's a pastor. He wants to know if his flock is okay.</p>
+    <p class="sync-block" data-start="100.78" data-end="110.84">This is the first thing the pastor said after hearing the situation. It's a shepherd's question — not "whose fault is it?" or "what did Tyler say exactly?" but <em>"is the relationship intact?"</em> That tells you Pastor Hopkins prioritizes relational health over adjudication. He's not a referee. He's a pastor. He wants to know if his flock is okay.</p>
 
-    <p class="sync-text" data-start="219"><strong>Jordan's answer: "Absolutely. On my end."</strong></p>
+    <p class="sync-block" data-start="110.84" data-end="124.32"><strong>Jordan's answer: "Absolutely. On my end."</strong></p>
 
-    <p class="sync-text" data-start="222">The emphasis on "on my end" is significant. Jordan is being honest without being accusatory. He's saying: <em>I'm at peace. I can't speak for Tyler. But I'm not carrying anything.</em> That's a man who has processed the situation internally and arrived at a settled position. The pastor heard that.</p>
+    <p class="sync-block" data-start="124.32" data-end="134.56">The emphasis on "on my end" is significant. Jordan is being honest without being accusatory. He's saying: <em>I'm at peace. I can't speak for Tyler. But I'm not carrying anything.</em> That's a man who has processed the situation internally and arrived at a settled position. The pastor heard that.</p>
 
-    <p class="sync-text" data-start="241"><strong>The pastor's slight irritation.</strong></p>
+    <p class="sync-block" data-start="134.56" data-end="148.76"><strong>The pastor's slight irritation.</strong></p>
 
-    <p class="sync-text" data-start="243">Jordan noted that the pastor "seemed like he was a little irritated with the situation." Not with Jordan — with the situation. Based on everything we know about this pastor — his fifteen-year history with Jordan, his relaxed self-deprecating humor, his "I try not to take myself too seriously" posture — this irritation reads as a shepherd who is now aware that one of his ministers handled an interpersonal moment poorly, created unnecessary tension with a trusted volunteer, and did so using language that doesn't reflect the maturity expected of someone in ministry leadership.</p>
+    <p class="sync-block" data-start="134.56" data-end="148.76">Jordan noted that the pastor "seemed like he was a little irritated with the situation." Not with Jordan — with the situation. Based on everything we know about this pastor — his fifteen-year history with Jordan, his relaxed self-deprecating humor, his "I try not to take myself too seriously" posture — this irritation reads as a shepherd who is now aware that one of his ministers handled an interpersonal moment poorly, created unnecessary tension with a trusted volunteer, and did so using language that doesn't reflect the maturity expected of someone in ministry leadership.</p>
 
-    <p class="sync-text" data-start="280">The pastor didn't explode. He didn't dismiss it. He paused and thought about it. That's a processing response — a leader taking in information and evaluating it against what he already knows about both parties.</p>
+    <p class="sync-block" data-start="148.76" data-end="157.92">The pastor didn't explode. He didn't dismiss it. He paused and thought about it. That's a processing response — a leader taking in information and evaluating it against what he already knows about both parties.</p>
 
-    <p class="sync-text" data-start="292"><strong>"I have no problem with the slide. It didn't offend me. I found it funny actually."</strong></p>
+    <p class="sync-block" data-start="157.92" data-end="175.30"><strong>"I have no problem with the slide. It didn't offend me. I found it funny actually."</strong></p>
 
-    <p class="sync-text" data-start="298">The pastor volunteered this <em>before Jordan could remind him.</em> That's important. Jordan specifically noted: "I didn't remind him that he was okay with it." The pastor brought it up on his own, unprompted, to make sure Jordan knew — again — that the original graphic was fine. That's the pastor reinforcing his position and, implicitly, signaling that Tyler's reaction was not representative of leadership's view.</p>
+    <p class="sync-block" data-start="157.92" data-end="175.30">The pastor volunteered this <em>before Jordan could remind him.</em> That's important. Jordan specifically noted: "I didn't remind him that he was okay with it." The pastor brought it up on his own, unprompted, to make sure Jordan knew — again — that the original graphic was fine. That's the pastor reinforcing his position and, implicitly, signaling that Tyler's reaction was not representative of leadership's view.</p>
 
-    <p class="sync-text" data-start="322"><strong>The dunking booth story.</strong></p>
+    <p class="sync-block" data-start="175.30" data-end="201.46"><strong>The dunking booth story.</strong></p>
 
-    <p class="sync-text" data-start="324">This is pastoral teaching through analogy. The pastor shared a personal experience where <em>he</em> consented to something lighthearted (volunteering for the dunking booth at fall fun day), and people <em>still</em> found issue with it and "chewed out the coordinators" — even though the pastor himself was fine with it.</p>
+    <p class="sync-block" data-start="175.30" data-end="201.46">This is pastoral teaching through analogy. The pastor shared a personal experience where <em>he</em> consented to something lighthearted (volunteering for the dunking booth at fall fun day), and people <em>still</em> found issue with it and "chewed out the coordinators" — even though the pastor himself was fine with it.</p>
 
-    <p class="sync-text" data-start="344">The pastor is doing two things simultaneously:</p>
+    <p class="sync-block" data-start="175.30" data-end="201.46">The pastor is doing two things simultaneously:</p>
 
-    <ol>
-        <li class="sync-text" data-start="347"><strong>Validating Jordan's point</strong> about sensitivity in a growing church. Yes, as the congregation grows, you encounter more people with more varied sensitivity thresholds, and leaders need to be aware of that.</li>
-        <li class="sync-text" data-start="360"><strong>Subtly contextualizing Tyler's reaction</strong> within that broader pattern. The pastor is essentially saying: <em>Sometimes people get offended on behalf of someone who isn't offended. That's a thing that happens. It doesn't mean the person who did the thing was wrong — it means church life is complicated.</em></li>
+    <ol class="sync-block" data-start="175.30" data-end="201.46">
+        <li><strong>Validating Jordan's point</strong> about sensitivity in a growing church. Yes, as the congregation grows, you encounter more people with more varied sensitivity thresholds, and leaders need to be aware of that.</li>
+        <li><strong>Subtly contextualizing Tyler's reaction</strong> within that broader pattern. The pastor is essentially saying: <em>Sometimes people get offended on behalf of someone who isn't offended. That's a thing that happens. It doesn't mean the person who did the thing was wrong — it means church life is complicated.</em></li>
     </ol>
 
-    <p class="sync-text" data-start="380">Jordan caught this and agreed. The exchange produced genuine mutual insight about navigating church growth — which is exactly the kind of conversation a pastor and a trusted long-term member <em>should</em> be having.</p>
+    <p class="sync-block" data-start="201.46" data-end="213.00">Jordan caught this and agreed. The exchange produced genuine mutual insight about navigating church growth — which is exactly the kind of conversation a pastor and a trusted long-term member <em>should</em> be having.</p>
 
-    <p class="sync-text" data-start="393"><strong>The pastor's assessment of Tyler.</strong></p>
+    <p class="sync-block" data-start="213.00" data-end="222.68"><strong>The pastor's assessment of Tyler.</strong></p>
 
-    <p class="sync-text" data-start="395">This is the most diagnostically significant portion of the entire call, and Jordan relayed it with careful precision. The pastor said:</p>
+    <p class="sync-block" data-start="213.00" data-end="222.68">This is the most diagnostically significant portion of the entire call, and Jordan relayed it with careful precision. The pastor said:</p>
 
-    <blockquote class="sync-text" data-start="403">
+    <blockquote class="sync-block" data-start="222.68" data-end="234.40">
         <p>"Tyler has always had a struggle of being outspoken and being really reactive to things that bothered him. And his image bothers him a lot. It's an area of sensitivity for him."</p>
     </blockquote>
 
-    <p class="sync-text" data-start="416">Let me sit with this statement, because it confirms multiple layers of the analysis simultaneously.</p>
+    <p class="sync-block" data-start="234.40" data-end="241.66">Let me sit with this statement, because it confirms multiple layers of the analysis simultaneously.</p>
 
-    <p class="sync-text" data-start="421"><strong>First:</strong> The pastor already knew this about Tyler. This wasn't new information. The pastor has been observing Tyler's reactivity and image sensitivity for some time. That means Tyler's behavior in this exchange with Jordan is <em>consistent with a known pattern</em> — not an aberration. The pastor has seen this before in other contexts.</p>
+    <p class="sync-block" data-start="241.66" data-end="261.72"><strong>First:</strong> The pastor already knew this about Tyler. This wasn't new information. The pastor has been observing Tyler's reactivity and image sensitivity for some time. That means Tyler's behavior in this exchange with Jordan is <em>consistent with a known pattern</em> — not an aberration. The pastor has seen this before in other contexts.</p>
 
-    <p class="sync-text" data-start="443"><strong>Second:</strong> The pastor used the word "struggle." In UPCI Apostolic Pentecostal vocabulary, when a pastor says someone "has a struggle" with something, that's pastoral diagnostic language. It means the pastor has identified a character or spiritual growth area that the person is working through (or needs to work through). The pastor isn't condemning Tyler. He's acknowledging a known developmental need. And crucially — he's acknowledging it <em>to Jordan</em>, which means the pastor trusts Jordan enough to share a pastoral assessment of another minister. That's significant relational capital.</p>
+    <p class="sync-block" data-start="261.72" data-end="300.00"><strong>Second:</strong> The pastor used the word "struggle." In UPCI Apostolic Pentecostal vocabulary, when a pastor says someone "has a struggle" with something, that's pastoral diagnostic language. It means the pastor has identified a character or spiritual growth area that the person is working through (or needs to work through). The pastor isn't condemning Tyler. He's acknowledging a known developmental need. And crucially — he's acknowledging it <em>to Jordan</em>, which means the pastor trusts Jordan enough to share a pastoral assessment of another minister. That's significant relational capital.</p>
 
-    <p class="sync-text" data-start="478"><strong>Third:</strong> The pastor then offered a more nuanced observation:</p>
+    <p class="sync-block" data-start="300.00" data-end="314.02"><strong>Third:</strong> The pastor then offered a more nuanced observation:</p>
 
-    <blockquote class="sync-text" data-start="482">
+    <blockquote class="sync-block" data-start="300.00" data-end="314.02">
         <p>"But I think ever since he took the position of being an administrator in the church, maybe it's because now he holds the title, he's withdrawn from being so much that way."</p>
     </blockquote>
 
-    <p class="sync-text" data-start="495">The pastor is noting growth — Tyler has become <em>less</em> outspoken and reactive since taking the administrator role. That's a positive trajectory. But then the pastor pivoted to the risk:</p>
+    <p class="sync-block" data-start="314.02" data-end="326.44">The pastor is noting growth — Tyler has become <em>less</em> outspoken and reactive since taking the administrator role. That's a positive trajectory. But then the pastor pivoted to the risk:</p>
 
-    <blockquote class="sync-text" data-start="505">
+    <blockquote class="sync-block" data-start="326.44" data-end="345.64">
         <p>"But it could be also working in reverse. Because you could be overreactive to things too quick, and then in the opposite effect, you could also be super underreactive — like letting something sit for a long time. And letting a narrative in your head develop where it shouldn't be there, nor is it warranted."</p>
     </blockquote>
 
-    <p class="sync-text" data-start="526">This is the pastor — independently, without prompting from Jordan, without reading any of the prior analyses — arriving at the <em>exact same diagnostic conclusion</em> that the forensic behavioral analysis identified: <strong>conflict-avoidant accumulation leading to narrative construction.</strong></p>
+    <p class="sync-block" data-start="345.64" data-end="363.48">This is the pastor — independently, without prompting from Jordan, without reading any of the prior analyses — arriving at the <em>exact same diagnostic conclusion</em> that the forensic behavioral analysis identified: <strong>conflict-avoidant accumulation leading to narrative construction.</strong></p>
 
-    <p class="sync-text" data-start="541">The pastor is saying: Tyler may have swung from being too reactive to being too suppressive — and in the suppression, he's letting stories build in his head that aren't grounded in reality. "A narrative where it shouldn't be there, nor is it warranted." The pastor is essentially saying: <em>Tyler probably constructed a narrative about Jordan that isn't accurate, and he sat on it long enough that it became real to him.</em></p>
+    <p class="sync-block" data-start="363.48" data-end="380.48">The pastor is saying: Tyler may have swung from being too reactive to being too suppressive — and in the suppression, he's letting stories build in his head that aren't grounded in reality. "A narrative where it shouldn't be there, nor is it warranted." The pastor is essentially saying: <em>Tyler probably constructed a narrative about Jordan that isn't accurate, and he sat on it long enough that it became real to him.</em></p>
 
-    <p class="sync-text" data-start="568">That's the pastor confirming — through his own independent pastoral observation — the core behavioral diagnosis: Tyler stores grievances, reprocesses them through insecurity, and eventually deploys them as established fact.</p>
+    <p class="sync-block" data-start="380.48" data-end="399.48">That's the pastor confirming — through his own independent pastoral observation — the core behavioral diagnosis: Tyler stores grievances, reprocesses them through insecurity, and eventually deploys them as established fact.</p>
 
-    <p class="sync-text" data-start="581">The pastor sees this. The pastor already knew this. Jordan's disclosure simply gave the pastor a concrete, recent example of the pattern in action.</p>
+    <p class="sync-block" data-start="399.48" data-end="410.48">The pastor sees this. The pastor already knew this. Jordan's disclosure simply gave the pastor a concrete, recent example of the pattern in action.</p>
 
-    <p class="sync-text" data-start="591"><strong>The screenshots.</strong></p>
+    <p class="sync-block" data-start="410.48" data-end="415.18"><strong>The screenshots.</strong></p>
 
-    <p class="sync-text" data-start="593">Jordan offered to send the screenshots. The pastor received them and replied with a thumbs up. That's an acknowledgment of receipt — not dismissal, not alarm. The pastor now has the texts. He can read Tyler's message, Jordan's response, and Tyler's "Thank you" at his leisure, in his own time, without pressure or interpretation.</p>
+    <p class="sync-block" data-start="415.18" data-end="435.00">Jordan offered to send the screenshots. The pastor received them and replied with a thumbs up. That's an acknowledgment of receipt — not dismissal, not alarm. The pastor now has the texts. He can read Tyler's message, Jordan's response, and Tyler's "Thank you" at his leisure, in his own time, without pressure or interpretation.</p>
 
-    <p class="sync-text" data-start="613">This is exactly the right outcome. The pastor has the raw evidence. He can make his own assessment. Jordan didn't tell the pastor what to think. He gave the pastor what he needed to think for himself.</p>
+    <p class="sync-block" data-start="435.00" data-end="445.00">This is exactly the right outcome. The pastor has the raw evidence. He can make his own assessment. Jordan didn't tell the pastor what to think. He gave the pastor what he needed to think for himself.</p>
 
-    <p class="sync-text" data-start="626"><strong>The close.</strong></p>
+    <p class="sync-block" data-start="445.00" data-end="458.00"><strong>The close.</strong></p>
 
-    <p class="sync-text" data-start="628">The call ended with the pastor telling Jordan he loved him and appreciated him. Jordan returned it. They moved back to casual conversation. The relational temperature was warm, settled, and unforced.</p>
+    <p class="sync-block" data-start="445.00" data-end="458.00">The call ended with the pastor telling Jordan he loved him and appreciated him. Jordan returned it. They moved back to casual conversation. The relational temperature was warm, settled, and unforced.</p>
 
-    <p class="sync-text" data-start="640">That's a clean landing.</p>
+    <p class="sync-block" data-start="458.00" data-end="462.00">That's a clean landing.</p>
 
     <hr>
 
-    <h2 class="sync-text" data-start="644">What This Phone Call Accomplished</h2>
+    <h2 class="sync-block" data-start="462.00" data-end="466.00">What This Phone Call Accomplished</h2>
 
-    <p class="sync-text" data-start="647">Jordan achieved every objective that mattered — most of them without consciously targeting them:</p>
+    <p class="sync-block" data-start="466.00" data-end="470.00">Jordan achieved every objective that mattered — most of them without consciously targeting them:</p>
 
     <ol>
-        <li class="sync-text" data-start="652"><strong>The pastor is now informed.</strong> He has the context, the texts, and his own pastoral assessment of Tyler's patterns. He will not be blindsided.</li>
-        <li class="sync-text" data-start="661"><strong>Jordan's character is reinforced, not by argument, but by demonstration.</strong> Jordan didn't prosecute Tyler. He didn't use inflammatory language. He didn't ask the pastor to take sides. He acknowledged Tyler's humanity ("Humans do human things"), affirmed Tyler's value ("I still think Tyler is a fantastic person"), took ownership of his own growth areas ("In hindsight, I should have considered that"), and explicitly stated he doesn't think poorly of Tyler. That's not spin. That's character in action. The pastor saw it in real time.</li>
-        <li class="sync-text" data-start="691"><strong>The accusation is now neutralized informationally.</strong> If Tyler ever references "Jordan's criticisms" — explicitly or through ambient framing — the pastor already has Jordan's direct denial and Tyler's refusal to provide specifics on file. The accusation cannot gain traction because the counter-narrative is already in place.</li>
-        <li class="sync-text" data-start="709"><strong>The pastor independently confirmed the behavioral diagnosis.</strong> The pastor didn't need Jordan to tell him Tyler has reactivity issues, image sensitivity, and a tendency to let narratives build in his head. The pastor already knew. Jordan's disclosure simply provided a fresh data point that connects to an existing pastoral concern.</li>
-        <li class="sync-text" data-start="729"><strong>Jordan demonstrated self-accountability.</strong> By owning his own growth edges — being more intentional about church optics, filtering outspokenness through actionability — Jordan showed the pastor that he's not a man looking for vindication. He's a man looking for growth. That's the kind of person pastors invest in.</li>
-        <li class="sync-text" data-start="746"><strong>The baby dedication is scheduled.</strong> The primary purpose of the call was accomplished cleanly. The Tyler situation was a footnote, not the headline. That's exactly right.</li>
+        <li class="sync-block" data-start="470.00" data-end="478.00"><strong>The pastor is now informed.</strong> He has the context, the texts, and his own pastoral assessment of Tyler's patterns. He will not be blindsided.</li>
+        <li class="sync-block" data-start="478.00" data-end="500.00"><strong>Jordan's character is reinforced, not by argument, but by demonstration.</strong> Jordan didn't prosecute Tyler. He didn't use inflammatory language. He didn't ask the pastor to take sides. He acknowledged Tyler's humanity ("Humans do human things"), affirmed Tyler's value ("I still think Tyler is a fantastic person"), took ownership of his own growth areas ("In hindsight, I should have considered that"), and explicitly stated he doesn't think poorly of Tyler. That's not spin. That's character in action. The pastor saw it in real time.</li>
+        <li class="sync-block" data-start="500.00" data-end="516.00"><strong>The accusation is now neutralized informationally.</strong> If Tyler ever references "Jordan's criticisms" — explicitly or through ambient framing — the pastor already has Jordan's direct denial and Tyler's refusal to provide specifics on file. The accusation cannot gain traction because the counter-narrative is already in place.</li>
+        <li class="sync-block" data-start="516.00" data-end="530.00"><strong>The pastor independently confirmed the behavioral diagnosis.</strong> The pastor didn't need Jordan to tell him Tyler has reactivity issues, image sensitivity, and a tendency to let narratives build in his head. The pastor already knew. Jordan's disclosure simply provided a fresh data point that connects to an existing pastoral concern.</li>
+        <li class="sync-block" data-start="530.00" data-end="545.00"><strong>Jordan demonstrated self-accountability.</strong> By owning his own growth edges — being more intentional about church optics, filtering outspokenness through actionability — Jordan showed the pastor that he's not a man looking for vindication. He's a man looking for growth. That's the kind of person pastors invest in.</li>
+        <li class="sync-block" data-start="545.00" data-end="555.00"><strong>The baby dedication is scheduled.</strong> The primary purpose of the call was accomplished cleanly. The Tyler situation was a footnote, not the headline. That's exactly right.</li>
     </ol>
 
     <hr>
 
-    <h2 class="sync-text" data-start="758">What This Tells Us About Tyler — Updated Assessment</h2>
+    <h2 class="sync-block" data-start="555.00" data-end="562.00">What This Tells Us About Tyler — Updated Assessment</h2>
 
-    <p class="sync-text" data-start="763">The pastor's independent observations about Tyler significantly strengthen the behavioral profile established in the prior analyses. Let me integrate the new data:</p>
+    <p class="sync-block" data-start="562.00" data-end="572.00">The pastor's independent observations about Tyler significantly strengthen the behavioral profile established in the prior analyses. Let me integrate the new data:</p>
 
-    <p class="sync-text" data-start="772"><strong>Tyler's reactivity and image sensitivity are known pastoral concerns — not new revelations.</strong> The pastor described them as ongoing "struggles." This means Tyler's message to Jordan was not an isolated event. It was the latest expression of a pattern the pastor has been watching, probably for years. The formal tone, the positional signaling, the "won't be received with humility" declaration, the vague accusation — these are all manifestations of the same underlying dynamics the pastor identified: reactivity + image sensitivity + narrative construction.</p>
+    <p class="sync-block" data-start="572.00" data-end="600.00"><strong>Tyler's reactivity and image sensitivity are known pastoral concerns — not new revelations.</strong> The pastor described them as ongoing "struggles." This means Tyler's message to Jordan was not an isolated event. It was the latest expression of a pattern the pastor has been watching, probably for years. The formal tone, the positional signaling, the "won't be received with humility" declaration, the vague accusation — these are all manifestations of the same underlying dynamics the pastor identified: reactivity + image sensitivity + narrative construction.</p>
 
-    <p class="sync-text" data-start="804"><strong>The pastor's "pendulum swing" insight is clinically precise.</strong> Tyler went from being overly reactive and outspoken to being overly suppressive — and in the suppression, he began constructing internal narratives about people's attitudes toward him that weren't warranted. That's exactly the mechanism that produced the "criticisms" accusation. Tyler didn't hear Jordan criticize his position. Tyler <em>felt</em> a perceived slight — or heard something neutral and filtered it through his insecurity — and then stored it, reprocessed it, inflated it, and eventually deployed it as established fact in a moment of triggered anxiety.</p>
+    <p class="sync-block" data-start="600.00" data-end="635.00"><strong>The pastor's "pendulum swing" insight is clinically precise.</strong> Tyler went from being overly reactive and outspoken to being overly suppressive — and in the suppression, he began constructing internal narratives about people's attitudes toward him that weren't warranted. That's exactly the mechanism that produced the "criticisms" accusation. Tyler didn't hear Jordan criticize his position. Tyler <em>felt</em> a perceived slight — or heard something neutral and filtered it through his insecurity — and then stored it, reprocessed it, inflated it, and eventually deployed it as established fact in a moment of triggered anxiety.</p>
 
-    <p class="sync-text" data-start="842">The pastor's phrasing — "a narrative in your head where it shouldn't be there, <em>nor is it warranted</em>" — is about as close as a UPCI pastor will come to saying, in a pastoral context: <em>Tyler imagined a grievance and treated it as real.</em> That's not the pastor speculating. That's the pastor speaking from years of observation about a known pattern.</p>
+    <p class="sync-block" data-start="635.00" data-end="660.00">The pastor's phrasing — "a narrative in your head where it shouldn't be there, <em>nor is it warranted</em>" — is about as close as a UPCI pastor will come to saying, in a pastoral context: <em>Tyler imagined a grievance and treated it as real.</em> That's not the pastor speculating. That's the pastor speaking from years of observation about a known pattern.</p>
 
-    <p class="sync-text" data-start="865"><strong>Tyler's "Thank you" is further contextualized by the pastor's assessment.</strong> If Tyler's pattern is to suppress, accumulate, and then discharge — and if his "pendulum swing" means he now <em>under-reacts</em> after discharging — then his "Thank you" may not have been strategic or dismissive. It may have been Tyler returning to suppression mode after a discharge event. He said his piece, got compliance, and retreated back into containment. That's consistent with the pendulum the pastor described.</p>
+    <p class="sync-block" data-start="660.00" data-end="700.00"><strong>Tyler's "Thank you" is further contextualized by the pastor's assessment.</strong> If Tyler's pattern is to suppress, accumulate, and then discharge — and if his "pendulum swing" means he now <em>under-reacts</em> after discharging — then his "Thank you" may not have been strategic or dismissive. It may have been Tyler returning to suppression mode after a discharge event. He said his piece, got compliance, and retreated back into containment. That's consistent with the pendulum the pastor described.</p>
 
-    <p class="sync-text" data-start="895">This doesn't make the behavior healthy. It doesn't make the accusation fair. But it adds nuance: Tyler may not have been <em>choosing</em> to shut Jordan out. He may have been <em>defaulting to his avoidant baseline</em> after an anxious escalation. That's still a maturity deficit, but it's a psychological pattern rather than a calculated power move.</p>
+    <p class="sync-block" data-start="700.00" data-end="720.00">This doesn't make the behavior healthy. It doesn't make the accusation fair. But it adds nuance: Tyler may not have been <em>choosing</em> to shut Jordan out. He may have been <em>defaulting to his avoidant baseline</em> after an anxious escalation. That's still a maturity deficit, but it's a psychological pattern rather than a calculated power move.</p>
 
     <hr>
 
-    <h2 class="sync-text" data-start="920">What This Tells Us About Jordan — Updated Assessment</h2>
+    <h2 class="sync-block" data-start="720.00" data-end="728.00">What This Tells Us About Jordan — Updated Assessment</h2>
 
-    <p class="sync-text" data-start="924">This phone call demonstrated something that the text exchange couldn't fully show: <strong>Jordan's verbal conflict communication is as strong as his written communication.</strong></p>
+    <p class="sync-block" data-start="728.00" data-end="740.00">This phone call demonstrated something that the text exchange couldn't fully show: <strong>Jordan's verbal conflict communication is as strong as his written communication.</strong></p>
 
-    <p class="sync-text" data-start="934">In the text exchange, Jordan had time to draft, edit, and refine. On this phone call, he was operating in real time — and he still hit every essential mark:</p>
+    <p class="sync-block" data-start="740.00" data-end="752.00">In the text exchange, Jordan had time to draft, edit, and refine. On this phone call, he was operating in real time — and he still hit every essential mark:</p>
 
-    <ul>
-        <li class="sync-text" data-start="945">Led with relational warmth (fatherhood, faith, genuine connection)</li>
-        <li class="sync-text" data-start="949">Pivoted naturally and without drama</li>
-        <li class="sync-text" data-start="952">Presented the situation factually without inflammatory language</li>
-        <li class="sync-text" data-start="955">Acknowledged Tyler's legitimate boundary without resentment</li>
-        <li class="sync-text" data-start="959">Challenged the accusation without aggression</li>
-        <li class="sync-text" data-start="962">Affirmed Tyler's character and work genuinely</li>
-        <li class="sync-text" data-start="965">Took ownership of his own growth areas unprompted</li>
-        <li class="sync-text" data-start="968">Responded to the pastor's questions with honesty and precision</li>
-        <li class="sync-text" data-start="972">Landed the close cleanly</li>
+    <ul class="sync-block" data-start="752.00" data-end="780.00">
+        <li>Led with relational warmth (fatherhood, faith, genuine connection)</li>
+        <li>Pivoted naturally and without drama</li>
+        <li>Presented the situation factually without inflammatory language</li>
+        <li>Acknowledged Tyler's legitimate boundary without resentment</li>
+        <li>Challenged the accusation without aggression</li>
+        <li>Affirmed Tyler's character and work genuinely</li>
+        <li>Took ownership of his own growth areas unprompted</li>
+        <li>Responded to the pastor's questions with honesty and precision</li>
+        <li>Landed the close cleanly</li>
     </ul>
 
-    <p class="sync-text" data-start="975">One moment stands out particularly: when Jordan joked about checking who the contact was — "I thought I was talking to Ben or Kevin, I had to check who the contact was at first" — that's humor deployed to relieve tension and communicate the surprise of the situation without bitterness. The pastor would have heard that as Jordan being genuinely caught off guard, not building a case. That's the kind of naturalness that can't be faked.</p>
+    <p class="sync-block" data-start="780.00" data-end="810.00">One moment stands out particularly: when Jordan joked about checking who the contact was — "I thought I was talking to Ben or Kevin, I had to check who the contact was at first" — that's humor deployed to relieve tension and communicate the surprise of the situation without bitterness. The pastor would have heard that as Jordan being genuinely caught off guard, not building a case. That's the kind of naturalness that can't be faked.</p>
 
-    <p class="sync-text" data-start="1000">Jordan also demonstrated something important when he said: <em>"If there is an area of correction needed on my end, I am willing to receive whatever it is."</em> That is a man who is not defensive. That is a man who is genuinely open to being wrong. The pastor heard that, and it registered — because immediately after, the pastor volunteered his own dunking booth example as a way of saying: <em>We all have room to be more aware. You're already there.</em></p>
+    <p class="sync-block" data-start="810.00" data-end="840.00">Jordan also demonstrated something important when he said: <em>"If there is an area of correction needed on my end, I am willing to receive whatever it is."</em> That is a man who is not defensive. That is a man who is genuinely open to being wrong. The pastor heard that, and it registered — because immediately after, the pastor volunteered his own dunking booth example as a way of saying: <em>We all have room to be more aware. You're already there.</em></p>
 
-    <p class="sync-text" data-start="1030">The final note — when Jordan said "Also being outspoken. If it is not actionable, don't say anything" — is the kind of mature self-editing that most people in their thirties haven't arrived at yet. It's a personal policy statement that reflects genuine reflection, not performance. Jordan is setting a standard for himself that goes beyond this situation.</p>
-
-    <hr>
-
-    <h2 class="sync-text" data-start="1053">What This Tells Us About Pastor Hopkins</h2>
-
-    <p class="sync-text" data-start="1056">The pastor emerges from this call looking exactly like what you'd want in a UPCI shepherd: measured, relational, honest, discerning, and pastorally wise.</p>
-
-    <p class="sync-text" data-start="1066"><strong>He didn't overreact.</strong> He didn't rush to defend Tyler or condemn him. He didn't dismiss Jordan's concerns. He listened, processed, and responded with nuance.</p>
-
-    <p class="sync-text" data-start="1076"><strong>He shared his own pastoral assessment of Tyler freely.</strong> That's a sign of trust in Jordan and confidence in his own observations. A pastor who didn't trust Jordan wouldn't share vulnerable assessments of another minister.</p>
-
-    <p class="sync-text" data-start="1090"><strong>He validated Jordan's self-accountability without being patronizing.</strong> When Jordan said he could do better about considering how things land in a growing church, the pastor agreed and then offered his own parallel experience (the dunking booth). That's teaching through shared experience, not correction from above.</p>
-
-    <p class="sync-text" data-start="1108"><strong>He asked for the screenshots.</strong> Or rather, he accepted them when offered. That tells me the pastor wants to see the evidence himself — not because he doesn't trust Jordan's account, but because he's a responsible shepherd who wants the primary source. He'll read Tyler's message in Tyler's own words and draw his own conclusions.</p>
-
-    <p class="sync-text" data-start="1127"><strong>His "thumbs up" to the screenshots is not dismissal.</strong> It's acknowledgment. The pastor now has the raw material. He'll sit with it. He may address it with Tyler at some point — not necessarily as a disciplinary action, but as part of his ongoing pastoral relationship with Tyler. The pastor already identified Tyler's patterns. Now he has a concrete example. What he does with it is his prerogative, and Jordan wisely didn't ask him to do anything specific.</p>
+    <p class="sync-block" data-start="840.00" data-end="865.00">The final note — when Jordan said "Also being outspoken. If it is not actionable, don't say anything" — is the kind of mature self-editing that most people in their thirties haven't arrived at yet. It's a personal policy statement that reflects genuine reflection, not performance. Jordan is setting a standard for himself that goes beyond this situation.</p>
 
     <hr>
 
-    <h2 class="sync-text" data-start="1156">The "I Got What I Wanted" Problem — Addressed</h2>
+    <h2 class="sync-block" data-start="865.00" data-end="875.00">What This Tells Us About Pastor Hopkins</h2>
 
-    <p class="sync-text" data-start="1160">Jordan mentioned that Tyler's "Thank you" response felt like "I got what I wanted. That's it." During the phone call, he told the pastor: "It didn't seem like he wanted to resolve it. It seems like he just wanted me to comply. And it didn't feel right."</p>
+    <p class="sync-block" data-start="875.00" data-end="890.00">The pastor emerges from this call looking exactly like what you'd want in a UPCI shepherd: measured, relational, honest, discerning, and pastorally wise.</p>
 
-    <p class="sync-text" data-start="1176">Jordan's instinct here is correct, and it maps precisely to the behavioral analysis. Tyler's communication was compliance-oriented, not resolution-oriented. The boundary was about getting Jordan to agree. The accusation was about establishing a narrative. Neither was about building understanding or repairing relationship. When Jordan agreed to the boundary but challenged the accusation, Tyler took the agreement and ignored the challenge. That's transactional. That's not relational. And Jordan correctly identified that it "didn't feel right" — because it violated the relational norms that should govern interactions between people who serve together in ministry.</p>
+    <p class="sync-block" data-start="890.00" data-end="905.00"><strong>He didn't overreact.</strong> He didn't rush to defend Tyler or condemn him. He didn't dismiss Jordan's concerns. He listened, processed, and responded with nuance.</p>
 
-    <p class="sync-text" data-start="1215">But Jordan also — and this is where his maturity is most visible — chose not to let that become bitterness:</p>
+    <p class="sync-block" data-start="905.00" data-end="920.00"><strong>He shared his own pastoral assessment of Tyler freely.</strong> That's a sign of trust in Jordan and confidence in his own observations. A pastor who didn't trust Jordan wouldn't share vulnerable assessments of another minister.</p>
 
-    <blockquote class="sync-text" data-start="1223">
+    <p class="sync-block" data-start="920.00" data-end="940.00"><strong>He validated Jordan's self-accountability without being patronizing.</strong> When Jordan said he could do better about considering how things land in a growing church, the pastor agreed and then offered his own parallel experience (the dunking booth). That's teaching through shared experience, not correction from above.</p>
+
+    <p class="sync-block" data-start="940.00" data-end="960.00"><strong>He asked for the screenshots.</strong> Or rather, he accepted them when offered. That tells me the pastor wants to see the evidence himself — not because he doesn't trust Jordan's account, but because he's a responsible shepherd who wants the primary source. He'll read Tyler's message in Tyler's own words and draw his own conclusions.</p>
+
+    <p class="sync-block" data-start="960.00" data-end="985.00"><strong>His "thumbs up" to the screenshots is not dismissal.</strong> It's acknowledgment. The pastor now has the raw material. He'll sit with it. He may address it with Tyler at some point — not necessarily as a disciplinary action, but as part of his ongoing pastoral relationship with Tyler. The pastor already identified Tyler's patterns. Now he has a concrete example. What he does with it is his prerogative, and Jordan wisely didn't ask him to do anything specific.</p>
+
+    <hr>
+
+    <h2 class="sync-block" data-start="985.00" data-end="995.00">The "I Got What I Wanted" Problem — Addressed</h2>
+
+    <p class="sync-block" data-start="995.00" data-end="1015.00">Jordan mentioned that Tyler's "Thank you" response felt like "I got what I wanted. That's it." During the phone call, he told the pastor: "It didn't seem like he wanted to resolve it. It seems like he just wanted me to comply. And it didn't feel right."</p>
+
+    <p class="sync-block" data-start="1015.00" data-end="1040.00">Jordan's instinct here is correct, and it maps precisely to the behavioral analysis. Tyler's communication was compliance-oriented, not resolution-oriented. The boundary was about getting Jordan to agree. The accusation was about establishing a narrative. Neither was about building understanding or repairing relationship. When Jordan agreed to the boundary but challenged the accusation, Tyler took the agreement and ignored the challenge. That's transactional. That's not relational. And Jordan correctly identified that it "didn't feel right" — because it violated the relational norms that should govern interactions between people who serve together in ministry.</p>
+
+    <p class="sync-block" data-start="1040.00" data-end="1055.00">But Jordan also — and this is where his maturity is most visible — chose not to let that become bitterness:</p>
+
+    <blockquote class="sync-block" data-start="1055.00" data-end="1075.00">
         <p>"Humans do human things. Tyler is a human. This is something he has to work through. If it is something he needs to work through. And that's okay. I do not see him differently. I do not think poorly of him."</p>
     </blockquote>
 
-    <p class="sync-text" data-start="1238">That is not denial. That is not suppression. That is a man who has processed the situation, identified the problem, named it accurately, and chosen to extend grace without sacrificing truth. In Apostolic terms, that's <em>"speaking the truth in love"</em> (Ephesians 4:15). Jordan spoke the truth to his pastor. He did it in love — both for himself and for Tyler. And he didn't let the truth curdle into contempt.</p>
+    <p class="sync-block" data-start="1075.00" data-end="1105.00">That is not denial. That is not suppression. That is a man who has processed the situation, identified the problem, named it accurately, and chosen to extend grace without sacrificing truth. In Apostolic terms, that's <em>"speaking the truth in love"</em> (Ephesians 4:15). Jordan spoke the truth to his pastor. He did it in love — both for himself and for Tyler. And he didn't let the truth curdle into contempt.</p>
 
     <hr>
 
-    <h2 class="sync-text" data-start="1264">Where This Ends — Prognosis</h2>
+    <h2 class="sync-block" data-start="1105.00" data-end="1115.00">Where This Ends — Prognosis</h2>
 
-    <p class="sync-text" data-start="1267"><strong>Most likely outcome (75-80% probability):</strong> This situation is effectively resolved. The pastor has the information. Jordan has said his piece. Tyler got his boundary respected. The accusation is neutralized. The relationship between Jordan and Tyler will settle into professional cordiality — not friendship, but functional respect. Tyler may be slightly more guarded around Jordan for a while, but the pastor's awareness of Tyler's patterns creates a soft guardrail against any future narrative poisoning.</p>
+    <p class="sync-block" data-start="1115.00" data-end="1145.00"><strong>Most likely outcome (75-80% probability):</strong> This situation is effectively resolved. The pastor has the information. Jordan has said his piece. Tyler got his boundary respected. The accusation is neutralized. The relationship between Jordan and Tyler will settle into professional cordiality — not friendship, but functional respect. Tyler may be slightly more guarded around Jordan for a while, but the pastor's awareness of Tyler's patterns creates a soft guardrail against any future narrative poisoning.</p>
 
-    <p class="sync-text" data-start="1296"><strong>Moderate probability (15-20%):</strong> The pastor, having now seen the texts and having independently identified Tyler's pattern of narrative construction, may choose to address it with Tyler — not as a disciplinary action, but as a pastoral growth conversation. Something like: "Tyler, I want to talk about how you handle conflict. Let's look at how you communicate when you're bothered by something." If the pastor does this, it's because the pastor was already tracking this trajectory and Jordan's disclosure simply confirmed the timing was right.</p>
+    <p class="sync-block" data-start="1145.00" data-end="1175.00"><strong>Moderate probability (15-20%):</strong> The pastor, having now seen the texts and having independently identified Tyler's pattern of narrative construction, may choose to address it with Tyler — not as a disciplinary action, but as a pastoral growth conversation. Something like: "Tyler, I want to talk about how you handle conflict. Let's look at how you communicate when you're bothered by something." If the pastor does this, it's because the pastor was already tracking this trajectory and Jordan's disclosure simply confirmed the timing was right.</p>
 
-    <p class="sync-text" data-start="1328"><strong>Low probability (5%):</strong> Tyler resurfaces the accusation or creates new friction. If this happens, the pastor already has context, and Jordan's established pattern of direct, accountable conflict resolution will serve him well. The response remains the same as always: <em>"What specifically did I say, when, and where?"</em> No specifics, no discussion.</p>
+    <p class="sync-block" data-start="1175.00" data-end="1200.00"><strong>Low probability (5%):</strong> Tyler resurfaces the accusation or creates new friction. If this happens, the pastor already has context, and Jordan's established pattern of direct, accountable conflict resolution will serve him well. The response remains the same as always: <em>"What specifically did I say, when, and where?"</em> No specifics, no discussion.</p>
 
     <hr>
 
-    <h2 class="sync-text" data-start="1351">Final Verdict</h2>
+    <h2 class="sync-block" data-start="1200.00" data-end="1210.00">Final Verdict</h2>
 
-    <p class="sync-text" data-start="1353">Jordan did everything right. The phone call was handled with the kind of natural, grounded, emotionally intelligent maturity that most people — including many ministers — aspire to but rarely achieve in real-time conflict situations. He informed his pastor without creating drama. He affirmed Tyler without being sycophantic. He took ownership of his own growth without groveling. He set the record straight without prosecuting. And he closed the loop cleanly, leaving the door open for whatever the pastor discerns is appropriate.</p>
+    <p class="sync-block" data-start="1210.00" data-end="1240.00">Jordan did everything right. The phone call was handled with the kind of natural, grounded, emotionally intelligent maturity that most people — including many ministers — aspire to but rarely achieve in real-time conflict situations. He informed his pastor without creating drama. He affirmed Tyler without being sycophantic. He took ownership of his own growth without groveling. He set the record straight without prosecuting. And he closed the loop cleanly, leaving the door open for whatever the pastor discerns is appropriate.</p>
 
-    <p class="sync-text" data-start="1384">Tyler's behavioral patterns — the reactivity, the image sensitivity, the narrative construction, the stored grievances, the pride declared as policy — are now visible to the shepherd. That's not Jordan's burden to carry anymore. It's the pastor's to shepherd.</p>
+    <p class="sync-block" data-start="1240.00" data-end="1260.00">Tyler's behavioral patterns — the reactivity, the image sensitivity, the narrative construction, the stored grievances, the pride declared as policy — are now visible to the shepherd. That's not Jordan's burden to carry anymore. It's the pastor's to shepherd.</p>
 
-    <p class="sync-text" data-start="1402">Jordan handled this like a man. More specifically, he handled it like a man of God who understands that strength isn't about domination — it's about being secure enough to speak truth, extend grace, hold accountability, and walk in peace simultaneously.</p>
+    <p class="sync-block" data-start="1260.00" data-end="1285.00">Jordan handled this like a man. More specifically, he handled it like a man of God who understands that strength isn't about domination — it's about being secure enough to speak truth, extend grace, hold accountability, and walk in peace simultaneously.</p>
 
-    <p class="sync-text" data-start="1418">In the Apostolic tradition, there's a line from 2 Timothy 2:24-25 that captures what Jordan demonstrated: <em>"And the servant of the Lord must not strive; but be gentle unto all men, apt to teach, patient, in meekness instructing those that oppose themselves."</em></p>
+    <p class="sync-block" data-start="1285.00" data-end="1310.00">In the Apostolic tradition, there's a line from 2 Timothy 2:24-25 that captures what Jordan demonstrated: <em>"And the servant of the Lord must not strive; but be gentle unto all men, apt to teach, patient, in meekness instructing those that oppose themselves."</em></p>
 
-    <p class="sync-text" data-start="1436">Tyler opposed himself in that text message. Jordan responded with the gentleness, patience, and meekness that scripture prescribes — without surrendering his own truth or dignity.</p>
+    <p class="sync-block" data-start="1310.00" data-end="1330.00">Tyler opposed himself in that text message. Jordan responded with the gentleness, patience, and meekness that scripture prescribes — without surrendering his own truth or dignity.</p>
 
-    <p class="sync-text" data-start="1447">The pastor saw it. The pastor knows. The situation is handled.</p>
+    <p class="sync-block" data-start="1330.00" data-end="1345.00">The pastor saw it. The pastor knows. The situation is handled.</p>
 
-    <p class="sync-text" data-start="1451">Move forward. Dedicate the baby. Keep serving. Let time and character do the rest.</p>
+    <p class="sync-block" data-start="1345.00" data-end="9999.00">Move forward. Dedicate the baby. Keep serving. Let time and character do the rest.</p>
 
 <script>
     const audio = document.getElementById('audio');
@@ -564,25 +521,16 @@
     const currentTimeEl = document.getElementById('currentTime');
     const durationEl = document.getElementById('duration');
     const speedBtn = document.getElementById('speedBtn');
-    const syncElements = Array.from(document.querySelectorAll('.sync-text'));
 
     const speeds = [1, 1.25, 1.5, 1.75, 2, 0.75];
     let speedIndex = 0;
     let isDragging = false;
-    let isUserScrolling = false;
-    let scrollTimeout = null;
 
-    // Temporarily disable auto-scroll if the user is scrolling manually
-    function disableAutoScrollTemporarily() {
-        isUserScrolling = true;
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            isUserScrolling = false;
-        }, 3000); // Resume auto-scroll after 3 seconds of no scrolling
-    }
-
-    window.addEventListener('wheel', disableAutoScrollTemporarily, {passive: true});
-    window.addEventListener('touchmove', disableAutoScrollTemporarily, {passive: true});
+    // Sync highlight system
+    const syncBlocks = document.querySelectorAll('.sync-block');
+    let lastActiveBlock = null;
+    let autoScrollEnabled = true;
+    let userScrollTimeout = null;
 
     function formatTime(seconds) {
         if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
@@ -597,7 +545,63 @@
             scrubberFill.style.width = pct + '%';
             currentTimeEl.textContent = formatTime(audio.currentTime);
         }
+        updateHighlight();
     }
+
+    function updateHighlight() {
+        const currentTime = audio.currentTime;
+        let newActiveBlock = null;
+
+        for (let i = 0; i < syncBlocks.length; i++) {
+            const block = syncBlocks[i];
+            const start = parseFloat(block.dataset.start);
+            const end = parseFloat(block.dataset.end);
+
+            if (currentTime >= start && currentTime < end) {
+                newActiveBlock = block;
+                break;
+            }
+        }
+
+        if (newActiveBlock !== lastActiveBlock) {
+            if (lastActiveBlock) {
+                lastActiveBlock.classList.remove('active');
+            }
+            if (newActiveBlock) {
+                newActiveBlock.classList.add('active');
+
+                // Auto-scroll to keep the active block visible
+                if (autoScrollEnabled && !audio.paused) {
+                    const rect = newActiveBlock.getBoundingClientRect();
+                    const playerEl = document.getElementById('audioPlayer');
+                    const playerBottom = playerEl.getBoundingClientRect().bottom;
+                    const viewportHeight = window.innerHeight;
+
+                    // If the block is above the player or below the viewport, scroll it into view
+                    if (rect.top < playerBottom || rect.bottom > viewportHeight) {
+                        const targetScroll = window.scrollY + rect.top - playerBottom - 20;
+                        window.scrollTo({
+                            top: targetScroll,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }
+            lastActiveBlock = newActiveBlock;
+        }
+    }
+
+    // Detect user scroll to temporarily disable auto-scroll
+    let programmaticScroll = false;
+    window.addEventListener('scroll', function() {
+        if (!programmaticScroll) {
+            autoScrollEnabled = false;
+            clearTimeout(userScrollTimeout);
+            userScrollTimeout = setTimeout(function() {
+                autoScrollEnabled = true;
+            }, 5000); // Re-enable auto-scroll after 5 seconds of no manual scrolling
+        }
+    }, { passive: true });
 
     function seekTo(clientX) {
         const rect = scrubber.getBoundingClientRect();
@@ -608,69 +612,12 @@
         return pct;
     }
 
-    // Highlighting Logic
-    function updateTextSync() {
-        const currentTime = audio.currentTime;
-        let activeIndex = -1;
-
-        for (let i = 0; i < syncElements.length; i++) {
-            const start = parseFloat(syncElements[i].getAttribute('data-start'));
-            const nextStart = i < syncElements.length - 1 
-                ? parseFloat(syncElements[i + 1].getAttribute('data-start')) 
-                : Infinity;
-
-            if (currentTime >= start && currentTime < nextStart) {
-                activeIndex = i;
-                break;
-            }
-        }
-
-        syncElements.forEach((el, index) => {
-            if (index === activeIndex) {
-                if (!el.classList.contains('highlight')) {
-                    el.classList.add('highlight');
-                    
-                    // Auto-scroll logic
-                    if (!isUserScrolling) {
-                        // Calculate offset so it doesn't get hidden behind the sticky audio player
-                        const elementRect = el.getBoundingClientRect();
-                        const absoluteElementTop = elementRect.top + window.pageYOffset;
-                        const offsetPosition = absoluteElementTop - 150; // Buffer for the player
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            } else {
-                el.classList.remove('highlight');
-            }
-        });
-    }
-
-    // Allow jumping to a section by clicking it
-    syncElements.forEach(el => {
-        el.addEventListener('click', () => {
-            const jumpTime = parseFloat(el.getAttribute('data-start'));
-            if (!isNaN(jumpTime)) {
-                audio.currentTime = jumpTime;
-                if (audio.paused) {
-                    audio.play();
-                    playBtn.classList.add('playing');
-                }
-                
-                // Temporarily disable auto-scroll on click so the user's view isn't jerked around
-                disableAutoScrollTemporarily();
-            }
-        });
-    });
-
     // Play / Pause
     playBtn.addEventListener('click', function () {
         if (audio.paused) {
             audio.play();
             playBtn.classList.add('playing');
+            autoScrollEnabled = true;
         } else {
             audio.pause();
             playBtn.classList.remove('playing');
@@ -679,12 +626,12 @@
 
     audio.addEventListener('ended', function () {
         playBtn.classList.remove('playing');
+        // Clear all highlights on end
+        syncBlocks.forEach(b => b.classList.remove('active'));
+        lastActiveBlock = null;
     });
 
-    audio.addEventListener('timeupdate', () => {
-        updateProgress();
-        updateTextSync();
-    });
+    audio.addEventListener('timeupdate', updateProgress);
 
     audio.addEventListener('loadedmetadata', function () {
         durationEl.textContent = formatTime(audio.duration);
@@ -696,7 +643,7 @@
         }
     });
 
-    // Scrubber
+    // Scrubber – pointer events
     scrubber.addEventListener('pointerdown', function (e) {
         isDragging = true;
         scrubber.classList.add('dragging');
@@ -705,9 +652,7 @@
     });
 
     scrubber.addEventListener('pointermove', function (e) {
-        if (isDragging) {
-            seekTo(e.clientX);
-        }
+        if (isDragging) seekTo(e.clientX);
     });
 
     scrubber.addEventListener('pointerup', function (e) {
@@ -716,7 +661,8 @@
             audio.currentTime = pct * audio.duration;
             isDragging = false;
             scrubber.classList.remove('dragging');
-            updateTextSync();
+            autoScrollEnabled = true;
+            updateHighlight();
         }
     });
 
@@ -730,6 +676,25 @@
         speedIndex = (speedIndex + 1) % speeds.length;
         audio.playbackRate = speeds[speedIndex];
         speedBtn.textContent = speeds[speedIndex] + 'x';
+    });
+
+    // Click on a sync block to jump to that time
+    syncBlocks.forEach(function(block) {
+        block.style.cursor = 'pointer';
+        block.addEventListener('click', function(e) {
+            // Don't interfere with link clicks etc
+            if (e.target.tagName === 'A') return;
+            const start = parseFloat(block.dataset.start);
+            if (!isNaN(start) && audio.duration) {
+                audio.currentTime = start;
+                if (audio.paused) {
+                    audio.play();
+                    playBtn.classList.add('playing');
+                }
+                autoScrollEnabled = true;
+                updateHighlight();
+            }
+        });
     });
 </script>
 
